@@ -7,8 +7,8 @@ app = Flask(__name__)
 UPLOAD_FOLDER = 'tmp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-DOWMLOAD_FOLDER = 'tmp'
-app.config['DOWNLOAD_FOLDER'] = DOWMLOAD_FOLDER
+DOWNLOAD_FOLDER = 'tmp'
+app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 
 
 @app.route('/')
