@@ -8,7 +8,7 @@ UPLOAD_FOLDER = 'tmp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 DOWMLOAD_FOLDER = 'tmp'
-app.config['DOWNLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['DOWNLOAD_FOLDER'] = DOWMLOAD_FOLDER
 
 
 @app.route('/')
@@ -40,17 +40,16 @@ def download():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    if request.method == 'POST':
-        upload_file = request.files['upload_file']
+    upload_file = request.files['upload_file']
 
-        filename = secure_filename(upload_file.filename)
+    filename = secure_filename(upload_file.filename)
 
-        try:
-            upload_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        except Exception as e:
-            return str(e)
+    try:
+        upload_file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    except Exception as e:
+        return str(e)
 
-        return redirect('/')
+    return redirect('/')
 
 
 if __name__ == '__main__':
