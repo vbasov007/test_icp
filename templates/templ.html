@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vasily's ICP Test</title>
+</head>
+<body>
+<h1>Test network file access:</h1>
+<small>Try: \\mucsdn11.eu.infineon.com\Distribution_and_EMS\Distribution_Europe_INTERN\REPORTING\DREG_Report_Vasily.csv</small>
+<form action="{{ url_for('read_file') }}" method="post">
+    <input type="text" name="file_path">
+    <input type="submit">
+</form>
+<div>File: {{ file_path }}</div>
+<div>First line: {{ result }}</div>
+
+<h1>Test file upload:</h1>
+    <form action="{{ url_for('upload') }}" method=post enctype=multipart/form-data>
+      <input type=file name='upload_file'>
+      <input type=submit value=Upload>
+    </form>
+
+<h1>Uploaded files:</h1>
+    {% for name in list_dir %}
+        <div>{{ name }}</div>
+    {% endfor %}
+
+<h1>Test file download:</h1>
+<form action="{{ url_for('download') }}" method="post">
+    <input type="text" name="download_file">
+    <input type="submit" value="Download">
+</form>
+
+
+</body>
+</html>
