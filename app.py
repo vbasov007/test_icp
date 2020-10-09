@@ -2,18 +2,28 @@ import os
 from flask import Flask, render_template, request, send_file, redirect
 from werkzeug.utils import secure_filename
 
-app = Flask(__name__)
-
 UPLOAD_FOLDER = 'tmp'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 DOWNLOAD_FOLDER = 'tmp'
+
+app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
+
+
+def create_working_folders():
+
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+
+    if not os.path.exists(app.config['DOWNLOAD_FOLDER']):
+        os.makedirs(app.config['DOWNLOAD_FOLDER'])
 
 
 @app.route('/')
 def start():
-    return render_template("templ.html", result="not ready", list_dir=os.listdir("tmp"))
+    create_working_folders()
+
+    return render_template("templ.html", result="not ready", list_dir=os.listdir(app.config['DOWNLOAD_FOLDER']))
 
 
 @app.route('/read_file', methods=['POST'])
